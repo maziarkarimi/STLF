@@ -14,11 +14,10 @@ for zone=1:zoneno
     Data.weatherzone{1,zone}.nebulosity=cell(nebulosityno,1);
 end
 
-calH=[];calD=[];
-
 loadDataPath=[AppPath,'\LoadData'];
 weatherDataPath = [AppPath,'\WeatherData'];
 calendarDataPath = [AppPath,'\Calendar'];
+calH=[];calD=[];
 
 for i=yy-N:yy
     for zone=1:zoneno
@@ -29,7 +28,12 @@ for i=yy-N:yy
         lsys=[];
         name0=['L_',corp_name];
         name1=[name0,num2str(i),'.xls'];
-        A=xlsread(name1,corp.zone{zone}.name);
+        if(exist(name1)>0)
+            A=xlsread(name1,corp.zone{zone}.name);
+        else
+            name1=[name0,num2str(i),'.xlsx'];
+            A=xlsread(name1,corp.zone{zone}.name);
+        end
         cd('..');
         Data.lsyszone{1,zone}=[Data.lsyszone{1,zone}; A(:,1:29)];
 %% temperature
@@ -55,7 +59,7 @@ for i=yy-N:yy
 %% humidity %%%% need to change!!!!!!!!!!
         humidityno=length(corp.zone{zone}.humidityname);
         if(humidityno ~=0)
-            cd(WeatherDataPath);
+            cd(weatherDataPath);
             for j=1:humidityno
                 name1=['T_',corp.zone{zone}.humidityname{j,1}];
                 cd(name1);
@@ -76,7 +80,7 @@ for i=yy-N:yy
 %% nebulosity %%%% need to change!!!!!!!!!!
         nebulosityno=length(corp.zone{zone}.nebulosityname);
         if(nebulosityno ~=0)
-            cd(WeatherDataPath);
+            cd(weatherDataPath);
             for j=1:nebulosityno
                 name1=['T_',corp.zone{zone}.nebulosityname{j,1}];
                 cd(name1);
@@ -99,8 +103,19 @@ for i=yy-N:yy
 
     cd(calendarDataPath);
     name5=['caln',num2str(i),'.xls'];
-    E=xlsread(name5);
-    Egh=xlsread('ghcal');
+    if(exist(name5)>0)
+        E=xlsread(name5);
+    else
+        name5=['caln',num2str(i),'.xlsx'];
+        E=xlsread(name5);
+    end
+    name6=['ghcal.xls'];
+    if(exist(name6)>0)
+        Egh=xlsread(name6);
+    else
+        name6=['ghcal.xlsx'];
+        Egh=xlsread(name6);
+    end    
     calD=E;
     cd('..');
     calH=[calH;calD];    
