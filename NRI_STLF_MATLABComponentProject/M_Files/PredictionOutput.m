@@ -19,7 +19,7 @@ for lct=1:days
     elseif(actual(lct,4)==7)
         temp = 'Friday';
     end
-    if sum(isnan(actual(lct,1:24))==0) && all(actual(lct,1:24)~=0)        
+    if all(isnan(actual(lct,6:29))==0) && all(actual(lct,6:29)~=0)        
                 
         figure();  
         hold on
