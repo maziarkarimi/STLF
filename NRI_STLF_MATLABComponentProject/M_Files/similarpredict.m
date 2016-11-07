@@ -14,6 +14,7 @@ daytypes = daytypesIn(1:(end-1));
 specialtype  = spdtypesIn(end);
 spdtypes = spdtypesIn(1:(end-1));
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if ramezan==2
     sp=find(ramezandays'==ramezan);
