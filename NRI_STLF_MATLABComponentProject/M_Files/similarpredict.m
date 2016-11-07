@@ -363,14 +363,16 @@ else
     elseif and(tomorrowtype~=5,tomorrowtype~=6)
         mmm=MinusN_M(mm,A(:,2));%Add by Gholami
         if(mm~=1 && mm~=7)
-            indices3=find((daytypes(3:end)'==tomorrowtype) & (daytypes(2:end-1)'==daytypesIn(end-1))& (daytypes(1:end-2)'==daytypesIn(end-2))& (mmm(3:end)== 1 | mmm(3:end)==0) & (ramezandays(3:end)'==ramezan));%Correct by Gholami
+%             indices3=find((daytypes(3:end)'==tomorrowtype) & (daytypes(2:end-1)'==daytypesIn(end-1))& (daytypes(1:end-2)'==daytypesIn(end-2))& (mmm(3:end)== 1 | mmm(3:end)==0) & (ramezandays(3:end)'==ramezan));%Correct by Gholami
+            indices3=[];
             if isempty(indices3)==1
                 indices1=find((daytypes'==tomorrowtype) & (mmm== 0 | mmm==1) & (ramezandays'==ramezan));%Correct by Gholami
             else
                 indices1=SumN_M(2,indices3);
             end
         else
-            indices3=find((daytypes(3:end)'==tomorrowtype) & (daytypes(2:end-1)'==daytypesIn(end-1))& (daytypes(1:end-2)'==daytypesIn(end-2))& (mmm(3:end)==0) & (ramezandays(3:end)'==ramezan));%Correct by Gholami
+%             indices3=find((daytypes(3:end)'==tomorrowtype) & (daytypes(2:end-1)'==daytypesIn(end-1))& (daytypes(1:end-2)'==daytypesIn(end-2))& (mmm(3:end)==0) & (ramezandays(3:end)'==ramezan));%Correct by Gholami
+            indices3=[];
             if isempty(indices3)==1
                 indices1=find((daytypes'==tomorrowtype) & (mmm== 0) & (ramezandays'==ramezan));%Correct by Gholami
             else
@@ -382,7 +384,7 @@ else
         ddd= MinusM_N(A(:,3),dd);%Add by Gholami
         indices2=find((daytypes'==tomorrowtype) & (mmm==0) & (abs(ddd)<=7) & (ramezandays'==ramezan));%Correct by Gholami
         indices3=[];
-        if (dd<8)
+        if (dd<8 && mm~=7)
             ddd= MinusM_N(A(:,3),30+dd);%Add by Gholami
             indices3=find((daytypes'==tomorrowtype) & (mmm==1) & (abs(ddd)<=7) & (ramezandays'==ramezan));%Correct by Gholami
         end
